@@ -56,3 +56,18 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
+
+model Blog {
+  id        String   @id                   @default(cuid())
+  title     String   @db.VarChar(60)
+  subtitle  String   @db.VarChar(191)
+  slug      String   @db.VarChar(60)
+  bgColor   String   @default("#FFFFFF") @db.VarChar(60)    @map("bg_color")
+  textColor String   @default("#000000") @db.VarChar(60)    @map("text_color") 
+  createdAt DateTime @default(now())       @map("created_at")
+  updatedAt DateTime @updatedAt            @map("updated_at")
+  deletedAt DateTime?
+
+  @@unique([slug])
+  @@map("blogs")
+}
