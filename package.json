@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "services:up": "docker compose -f up-infra/compose.yaml up -d",
+    "services:down": "docker compose -f up-infra/compose.yaml down",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
