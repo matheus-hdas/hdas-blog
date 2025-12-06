@@ -29,9 +29,15 @@ const stopServices = () => {
   });
 };
 
-const runDev = () => {
-  servicesProcess = runCommand("pnpm", ["run", "services:up"], (code) => {
+const sleep = async (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time));
+};
+
+const runDev = async () => {
+  servicesProcess = runCommand("pnpm", ["run", "services:up"], async (code) => {
     if (code !== 0) return;
+
+    await sleep(2000);
 
     runCommand("pnpm", ["run", "db:migrate"], (code) => {
       if (code !== 0) return;
