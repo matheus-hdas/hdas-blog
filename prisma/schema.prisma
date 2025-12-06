@@ -44,6 +44,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+
+  blogUsers BlogUser[]
  
   @@map("users")
 }
@@ -58,16 +60,39 @@ model VerificationToken {
 }
 
 model Blog {
-  id        String   @id                   @default(cuid())
-  title     String   @db.VarChar(60)
-  subtitle  String   @db.VarChar(191)
-  slug      String   @db.VarChar(60)
-  bgColor   String   @default("#FFFFFF") @db.VarChar(60)    @map("bg_color")
-  textColor String   @default("#000000") @db.VarChar(60)    @map("text_color") 
-  createdAt DateTime @default(now())       @map("created_at")
-  updatedAt DateTime @updatedAt            @map("updated_at")
-  deletedAt DateTime?
+  id        String    @id                   @default(cuid())
+  title     String    @db.VarChar(60)
+  subtitle  String    @db.VarChar(191)
+  slug      String    @db.VarChar(60)
+  bgColor   String    @default("#FFFFFF") @db.VarChar(60)    @map("bg_color")
+  textColor String    @default("#000000") @db.VarChar(60)    @map("text_color") 
+  createdAt DateTime  @default(now())       @map("created_at")
+  updatedAt DateTime  @updatedAt            @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  
+  users BlogUser[]
 
   @@unique([slug])
   @@map("blogs")
+}
+
+model BlogUser {
+  id        String    @id @default(cuid())
+  role      Role      @default(AUTHOR)
+  blog      Blog      @relation(fields: [blogId], references: [id])
+  blogId    String    @map("blog_id")
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt      @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("blog_users")
+}
+
+enum Role {
+  OWNER
+  AUTHOR
+  ADMIN
+  EDITOR
 }
