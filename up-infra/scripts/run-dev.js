@@ -36,15 +36,19 @@ const runDev = () => {
     runCommand("pnpm", ["run", "db:migrate"], (code) => {
       if (code !== 0) return;
 
-      nextProcess = runCommand("next", ["dev"], () => {
-        stopServices();
-      });
+      runCommand("pnpm", ["run", "prisma:generate"], (code) => {
+        if (code !== 0) return;
 
-      process.on("SIGINT", () => {
-        console.log("\nStopping services...");
-        if (nextProcess) {
-          nextProcess.kill();
-        }
+        nextProcess = runCommand("next", ["dev"], () => {
+          stopServices();
+        });
+
+        process.on("SIGINT", () => {
+          console.log("\nStopping services...");
+          if (nextProcess) {
+            nextProcess.kill();
+          }
+        });
       });
     });
   });

@@ -8,6 +8,7 @@
     "services:down": "docker compose -f up-infra/compose.yaml down",
     "db:migrate": "prisma migrate deploy",
     "migrations:create": "node up-infra/scripts/create-migration.js",
+    "prisma:generate": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
