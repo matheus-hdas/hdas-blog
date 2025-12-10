@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Email from "next-auth/providers/email";
 import Google from "next-auth/providers/google";
-import database from "@/lib/database";
+import database from "@/libs/database";
 
 const mailProvider = Email({
   server: {
