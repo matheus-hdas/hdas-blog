@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { ThemeProvider } from "../theme.provider";
 
 export const metadata = {
   title: { template: "%s | HDAS Blog", default: "Home | HDAS Blog" },
@@ -18,7 +19,7 @@ export default async function RootLayout({ children, params }: Props) {
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <ThemeProvider>{children}</ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
