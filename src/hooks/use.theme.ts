@@ -16,8 +16,11 @@ export const useTheme = () => {
   const getSavedTheme = () => {
     const savedTheme = localStorage.getItem("theme");
 
-    if (savedTheme === "light" || savedTheme === "dark") {
-      setTheme(theme);
+    if (
+      (savedTheme === "light" || savedTheme === "dark") &&
+      savedTheme !== theme
+    ) {
+      setTheme(savedTheme);
     }
 
     if (savedTheme) {
