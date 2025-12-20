@@ -9,7 +9,7 @@ import { ToggleTheme } from "@/components";
 
 const { Header, Content } = Layout;
 
-export const HomeLayout: React.FC<{ children: React.ReactNode }> = ({
+export const AuthLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
