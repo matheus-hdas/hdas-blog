@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql_db_container
+    container_name: mysql_db_container_hdas_blog
     restart: always
     env_file: ../.env.development
     ports:
