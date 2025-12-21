@@ -1,8 +1,9 @@
 import createMiddleware from "next-intl/middleware";
-import internationalization from "@/config/internationalization";
+import { intl } from "@/config/intl";
 
 export default createMiddleware({
-  ...internationalization,
+  locales: intl.locales,
+  defaultLocale: intl.defaultLocale,
   localeDetection: true,
 });
 

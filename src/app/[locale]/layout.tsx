@@ -1,25 +1,27 @@
+import type { Metadata } from "next";
+import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { ThemeProvider } from "../theme.provider";
+import { Providers } from "./providers";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: { template: "%s | HDAS Blog", default: "Home | HDAS Blog" },
 };
 
-type Props = {
+export default async function RootLayout({
+  children,
+  params: { locale },
+}: Readonly<{
   children: React.ReactNode;
   params: { locale: string };
-};
-
-export default async function RootLayout({ children, params }: Props) {
-  const { locale } = params;
+}>) {
   const messages = await getMessages();
 
   return (
     <html lang={locale}>
-      <body>
+      <body className={`antialiased`}>
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>
